@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0520">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="slot.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <title>Slot Machine</title>
+</head>
+<body>
+    <div class="hatter">
+        <center><h1>SLOT MACHINE</h1></center>
+    </div>
+    <div class="container slot-container">
+        <div class="currency-display">
+            <h2>Balance: <span id="currency">$5000</span></h2>
+        </div>
+        
+        <div class="slot-machine">
+            <div class="reel-container">
+                <div class="reel" id="reel1">
+                    <img src="../images/slot/cherries.png" alt="symbol" class="symbol">
+                </div>
+                <div class="reel" id="reel2">
+                    <img src="../images/slot/lemon.png" alt="symbol" class="symbol">
+                </div>
+                <div class="reel" id="reel3">
+                    <img src="../images/slot/seven.png" alt="symbol" class="symbol">
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="betAmount" placeholder="Enter bet amount" min="1" max="5000" value="10">
+            </div>
+            
+            <button class="spin-button" id="spinButton">SPIN</button>
+        </div>
+        
+        <div class="info-panel">
+            <p id="gameMessage" class="message">Place your bet and click SPIN!</p>
+            <p id="multiplierInfo" class="multiplier-info"></p>
+        </div>
+    </div>
+    
+    <a href="../index.html" class="back-button" title="Go back to the home page">Back</a>
+    
+    <script src="slot.js"></script>
+</body>
+</html>
