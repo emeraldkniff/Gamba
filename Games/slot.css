@@ -350,6 +350,91 @@ p {
     transform: scale(0.98);
 }
 
+.help-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8A2BE2 0%, #00BFFF 100%);
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+}
+
+.help-button:hover,
+.help-button:focus {
+    background: linear-gradient(135deg, #00BFFF 0%, #8A2BE2 100%);
+    outline: none;
+}
+
+.payout-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 76px;
+    z-index: 9;
+    width: min(320px, calc(100vw - 40px));
+    padding: 18px 20px;
+    border: 2px solid rgba(0, 191, 255, 0.7);
+    border-radius: 15px;
+    background: rgba(10, 5, 32, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+.payout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.payout-panel h2 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.payout-panel ul {
+    margin: 16px 0 12px;
+    padding-left: 20px;
+    color: white;
+    line-height: 1.8;
+}
+
+.payout-panel p {
+    margin: 0;
+    color: #FFD700;
+    font-size: 0.9rem;
+}
+
+.close-payouts {
+    padding: 5px 9px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .help-button {
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .payout-panel {
+        right: 10px;
+        bottom: 66px;
+        width: calc(100vw - 20px);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .slot-container {

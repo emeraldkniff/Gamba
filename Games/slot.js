@@ -5,15 +5,15 @@ const REEL_STOP_DELAY = 300; // Stagger each reel stopping
 
 // Symbols with multipliers (in order for visual)
 const SYMBOLS = [
-    { name: '7', multiplier: 5 },
-    { name: 'CHERRY', multiplier: 2 },
-    { name: 'LEMON', multiplier: 1 }
+    { name: '7', multiplier: 12 },
+    { name: 'CHERRY', multiplier: 6 },
+    { name: 'LEMON', multiplier: 3 }
 ];
 
 // Winning combinations
 const WINNING_COMBOS = {
-    'all_same': { multiplier: 10, description: 'Three of a Kind!' },
-    'two_same': { multiplier: 2, description: 'Two of a Kind!' },
+    'all_same': { description: 'Three of a Kind!' },
+    'two_sevens': { multiplier: 2, description: 'Two Sevens!' },
     'none': { multiplier: 0, description: 'No Match' }
 };
 
@@ -29,19 +29,35 @@ const spinButton = document.getElementById('spinButton');
 const gameMessage = document.getElementById('gameMessage');
 const multiplierInfo = document.getElementById('multiplierInfo');
 const reels = document.querySelectorAll('.reel');
+const helpButton = document.getElementById('helpButton');
+const closePayouts = document.getElementById('closePayouts');
+const payoutPanel = document.getElementById('payoutPanel');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     updateCurrencyDisplay();
     spinButton.addEventListener('click', handleSpin);
+    betAmountInput.addEventListener('input', formatBetInput);
     betAmountInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleSpin();
     });
 });
 
+function togglePayouts(show) {
+    payoutPanel.hidden = !show;
+    helpButton.setAttribute('aria-expanded', show);
+}
+
+helpButton.addEventListener('click', () => togglePayouts(payoutPanel.hidden));
+closePayouts.addEventListener('click', () => togglePayouts(false));
+
 function formatCurrency(amount) {
-    // Format currency with space as thousand separator
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function formatBetInput() {
+    const digits = betAmountInput.value.replace(/\D/g, '');
+    betAmountInput.value = digits ? formatCurrency(digits) : '';
 }
 
 function updateCurrencyDisplay() {
@@ -49,7 +65,7 @@ function updateCurrencyDisplay() {
 }
 
 function handleSpin() {
-    const betAmount = parseInt(betAmountInput.value);
+    const betAmount = parseInt(betAmountInput.value.replace(/,/g, ''), 10);
     
     // Validation
     if (isNaN(betAmount) || betAmount <= 0) {
@@ -125,23 +141,15 @@ function determineWinner(betAmount) {
     let winType = 'none';
     let winAmount = 0;
     
-    // Check for three of a kind
+    // Three identical symbols receive the full symbol payout.
     if (reel1 === reel2 && reel2 === reel3) {
         winType = 'all_same';
         const multiplier = SYMBOLS.find(s => s.name === reel1).multiplier;
-        winAmount = betAmount * multiplier * WINNING_COMBOS.all_same.multiplier;
-    }
-    // Check for two of a kind (any two matching)
-    else if (reel1 === reel2 || reel2 === reel3 || reel1 === reel3) {
-        winType = 'two_same';
-        // Find the matching pair and calculate
-        let matchingSymbol;
-        if (reel1 === reel2) matchingSymbol = reel1;
-        else if (reel2 === reel3) matchingSymbol = reel2;
-        else matchingSymbol = reel1;
-        
-        const multiplier = SYMBOLS.find(s => s.name === matchingSymbol).multiplier;
-        winAmount = betAmount * multiplier * WINNING_COMBOS.two_same.multiplier;
+        winAmount = betAmount * multiplier;
+    } else if (selectedSymbols.filter(symbol => symbol === '7').length === 2) {
+        // Exactly two sevens receive a small payout; other pairs do not win.
+        winType = 'two_sevens';
+        winAmount = betAmount * WINNING_COMBOS.two_sevens.multiplier;
     }
     
     // Display result

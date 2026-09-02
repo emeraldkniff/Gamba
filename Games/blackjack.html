@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0520">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="blackjack.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <title>Blackjack</title>
+</head>
+<body>
+    <div class="hatter"></div>
+    <main class="blackjack-container">
+        <header class="page-header">
+            <h1>BLACKJACK</h1>
+            <div class="currency-display">Balance: <span id="currency">$5 000</span></div>
+        </header>
+
+        <section class="table" aria-live="polite">
+            <div class="hand-section">
+                <h2>Dealer</h2>
+                <p id="dealerCards" class="cards">Waiting for a round</p>
+                <p id="dealerTotal" class="total"></p>
+            </div>
+
+            <div class="hand-section player-hand">
+                <h2>Your cards</h2>
+                <p id="playerCards" class="cards">Place a bet to play</p>
+                <p id="playerTotal" class="total"></p>
+            </div>
+        </section>
+
+        <section class="controls">
+            <div class="bet-row">
+                <label for="betAmount">Bet amount</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input id="betAmount" type="text" inputmode="numeric" autocomplete="off" value="100">
+                </div>
+            </div>
+            <div class="button-row">
+                <button id="playButton" class="action-button primary" type="button">Play</button>
+                <button id="hitButton" class="action-button" type="button" disabled>Hit</button>
+                <button id="standButton" class="action-button" type="button" disabled>Stand</button>
+            </div>
+        </section>
+
+        <p id="gameMessage" class="game-message">Place a bet and click Play.</p>
+        <a href="../index.html" class="back-button">Back</a>
+    </main>
+
+    <script src="blackjack.js"></script>
+</body>
+</html>
